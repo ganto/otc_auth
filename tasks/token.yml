@@ -12,7 +12,7 @@
 - name: Set facts generic endpoints
   set_fact:
     PROJECT_NAME: "{{ PROJECT_NAME }}"
-    IAM_AUTH_URL: "https://iam.{{ PROJECT_NAME }}.otc.t-systems.com/v3"
+    IAM_AUTH_URL: "{{ IAM_AUTH_URL | default('https://iam.' + PROJECT_NAME + '.otc.t-systems.com/v3') }}"
     AUTH_URL_ELB: "https://elb.{{ PROJECT_NAME }}.otc.t-systems.com/v1.0"
     AUTH_URL_ECS_CLOUD: "https://ecs.{{ PROJECT_NAME }}.otc.t-systems.com/v1"
     AUTH_URL_RDS: "https://rds.{{ PROJECT_NAME }}.otc.t-systems.com"
@@ -51,7 +51,7 @@
     AUTH_URL_EVSv2: "{{ (token.content|from_json)|json_query('token.catalog[?type==`volumev2`].endpoints[].url|[0]') }}"
     AUTH_URL_RTS: "{{ (token.content|from_json)|json_query('token.catalog[?type==`orchestration`].endpoints[].url|[0]') }}"
     AUTH_URL_IMS: "{{ (token.content|from_json)|json_query('token.catalog[?type==`image`].endpoints[].url|[0]') }}"
-    IAM_AUTH_URL: "https://iam.{{ PROJECT_NAME }}.otc.t-systems.com/v3"
+    IAM_AUTH_URL: "{{ IAM_AUTH_URL | default('https://iam.' + PROJECT_NAME + '.otc.t-systems.com/v3') }}"
 
 #- debug:
 #    msg: "{{ token }}"

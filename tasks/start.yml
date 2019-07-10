@@ -25,6 +25,7 @@
     PROJECT_NAME: "{{ lookup('env','OS_PROJECT_NAME') }}"
     DOMAIN: "{{ lookup('env','OS_DOMAIN_NAME') }}"
     USER_DOMAIN: "{{ lookup('env','OS_USER_DOMAIN_NAME') }}"
+    IAM_AUTH_URL: "{{ lookup('env', 'OS_AUTH_URL') }}"
   when: not osclientconfigfile.stat.exists
   tags:
     - always
@@ -38,6 +39,7 @@
     PROJECT_NAME: "{{ os_client_config['clouds'][CLOUD]['auth']['project_name'] }}"
     DOMAIN: "{{ os_client_config['clouds'][CLOUD]['auth']['domain_name'] }}"
     USER_DOMAIN: "{{ os_client_config['clouds'][CLOUD]['auth']['user_domain_name'] }}"
+    IAM_AUTH_URL: "{{ os_client_config['clouds'][CLOUD]['auth']['auth_url'] }}"
   when: osclientconfigfile.stat.exists
   tags:
     - always
