@@ -15,8 +15,6 @@
     IAM_AUTH_URL: "{{ IAM_AUTH_URL | default('https://iam.' + PROJECT_NAME + '.otc.t-systems.com/v3') }}"
     AUTH_URL_ELB: "https://elb.{{ PROJECT_NAME }}.otc.t-systems.com/v1.0"
     AUTH_URL_ECS_CLOUD: "https://ecs.{{ PROJECT_NAME }}.otc.t-systems.com/v1"
-    AUTH_URL_RDS: "https://rds.{{ PROJECT_NAME }}.otc.t-systems.com"
-    AUTH_URL_CTS: "https://cts.{{ PROJECT_NAME }}.otc.t-systems.com/v2.0"
 
 - name: Request token from AUTH API
   uri:
@@ -44,11 +42,13 @@
   set_fact:
     OS_USER_DOMAIN_ID: "{{ (token.content|from_json)|json_query('token.user.domain.id') }}"
     PROJECT_ID: "{{ (token.content|from_json)|json_query('token.project.id') }}"
+    AUTH_URL_CTS: "{{ (token.content|from_json)|json_query('token.catalog[?type==`cts`].endpoints[].url|[0]') }}"
     AUTH_URL_DNS: "{{ (token.content|from_json)|json_query('token.catalog[?type==`dns`].endpoints[].url|[0]') }}"
     AUTH_URL_ECS: "{{ (token.content|from_json)|json_query('token.catalog[?type==`compute`].endpoints[].url|[0]') }}"
     AUTH_URL_VPC: "{{ (token.content|from_json)|json_query('token.catalog[?type==`network`].endpoints[].url|[0]') }}"
     AUTH_URL_EVS: "{{ (token.content|from_json)|json_query('token.catalog[?type==`volume`].endpoints[].url|[0]') }}"
     AUTH_URL_EVSv2: "{{ (token.content|from_json)|json_query('token.catalog[?type==`volumev2`].endpoints[].url|[0]') }}"
+    AUTH_URL_RDS: "{{ (token.content|from_json)|json_query('token.catalog[?type==`rds`].endpoints[].url|[0]') }}"
     AUTH_URL_RTS: "{{ (token.content|from_json)|json_query('token.catalog[?type==`orchestration`].endpoints[].url|[0]') }}"
     AUTH_URL_IMS: "{{ (token.content|from_json)|json_query('token.catalog[?type==`image`].endpoints[].url|[0]') }}"
     IAM_AUTH_URL: "{{ IAM_AUTH_URL | default('https://iam.' + PROJECT_NAME + '.otc.t-systems.com/v3') }}"
