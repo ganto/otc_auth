@@ -4,7 +4,7 @@
   when:
     - not USERNAME
     - not PASSWORD
-    - not DOMAIN
+    - (not DOMAIN or not USER_DOMAIN)
     - not PROJECT_NAME
   tags:
     - always

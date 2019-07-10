@@ -23,7 +23,8 @@
     USERNAME: "{{ lookup('env','OS_USERNAME') }}"
     PASSWORD: "{{ lookup('env','OS_PASSWORD') }}"
     PROJECT_NAME: "{{ lookup('env','OS_PROJECT_NAME') }}"
-    DOMAIN: "{{ lookup('env','OS_USER_DOMAIN_NAME') }}"
+    DOMAIN: "{{ lookup('env','OS_DOMAIN_NAME') }}"
+    USER_DOMAIN: "{{ lookup('env','OS_USER_DOMAIN_NAME') }}"
   when: not osclientconfigfile.stat.exists
   tags:
     - always
@@ -35,7 +36,8 @@
     USERNAME: "{{ os_client_config['clouds'][CLOUD]['auth']['username'] }}"
     PASSWORD: "{{ os_client_config['clouds'][CLOUD]['auth']['password'] }}"
     PROJECT_NAME: "{{ os_client_config['clouds'][CLOUD]['auth']['project_name'] }}"
-    DOMAIN: "{{ os_client_config['clouds'][CLOUD]['auth']['user_domain_name'] }}"
+    DOMAIN: "{{ os_client_config['clouds'][CLOUD]['auth']['domain_name'] }}"
+    USER_DOMAIN: "{{ os_client_config['clouds'][CLOUD]['auth']['user_domain_name'] }}"
   when: osclientconfigfile.stat.exists
   tags:
     - always

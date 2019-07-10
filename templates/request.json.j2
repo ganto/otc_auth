@@ -14,7 +14,7 @@
                     "name": "{{ USERNAME }}",
                     "password": "{{ PASSWORD }}",
                     "domain": {
-                        "name": "{{ DOMAIN }}"
+                        "name": "{{ DOMAIN | default(USER_DOMAIN) }}"
                     }
                 }
 {% if totp is defined %}  
